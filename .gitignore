@@ -2,10 +2,7 @@
 __pycache__/
 *.pyc
 .DS_Store
-
-# Large or regenerable astronomical data
-data/*.fits
-data/epochs/*.fits
-
-# Future ML outputs
+.env
+.env.*
+*.pem
 models/
