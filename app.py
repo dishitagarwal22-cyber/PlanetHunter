@@ -862,3 +862,21 @@ st.caption(
     "PLANETHUNTER / NASA SPHEREx / "
     "IPAC IRSA / Experimental research prototype"
 )
+
+
+
+
+st.markdown(
+    """
+    <div style="text-align: center; padding: 20px;">
+        <p style="color: #C5FF41; font-size: 14px;">
+            Designed & Developed by Dishit Agarwal
+        </p>
+        <p style="color: #888888; font-size: 12px;">
+            Indian Institute of Technology Delhi |
+            NASA Space Apps Challenge 2026
+        </p>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
