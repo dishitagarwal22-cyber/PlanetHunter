@@ -1,0 +1,4 @@
+date,error
+2025-08-27 05:06:02.592,Could not download FITS: 503 Server Error: Service Unavailable for url: https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W35_1A/l2b-v27-2026-230/1/level2_2025W35_1A_0432_4D1_spx_l2b-v27-2026-230.fits?center=269.4520833333333%2C4.693333333333333&size=0.2
+2026-09-02 06:10:07.910,Could not download FITS: 503 Server Error: Service Unavailable for url: https://irsa.ipac.caltech.edu/ibe/data/spherex/qr3/level2/2026W36_1A/l2b-v27-2026-252/1/level2_2026W36_1A_0510_1D1_spx_l2b-v27-2026-252.fits?center=269.4520833333333%2C4.693333333333333&size=0.2
+2025-10-01 06:22:54.970,Could not download FITS: 503 Server Error: Service Unavailable for url: https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W40_1A/l2b-v27-2026-239/1/level2_2025W40_1A_0500_1D1_spx_l2b-v27-2026-239.fits?center=269.4520833333333%2C4.693333333333333&size=0.2
