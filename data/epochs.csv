@@ -1,0 +1,5 @@
+date,mjd,detector,original,aligned,overlap
+2025-05-23T01:28:45.835,60818.061641608794,1,data/epochs/existing_2.fits,data/epochs/existing_2_aligned.fits,0.98947983635301
+2025-06-19T23:32:40.843,60845.98102827546,1,data/epochs/epoch_4.fits,data/epochs/epoch_4_aligned.fits,0.9827586206896551
+2025-11-20T09:14:47.915,60999.38527679398,1,data/epochs/epoch_3.fits,data/epochs/epoch_3_aligned.fits,0.9742840444184687
+2026-05-21T12:09:39.139,61181.506702997685,1,data/epochs/existing_1.fits,data/epochs/existing_1_aligned.fits,1.0
