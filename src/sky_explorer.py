@@ -8,6 +8,9 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 import requests
+from io import BytesIO
+from astropy.io.votable import parse
+from astropy.table import vstack
 
 from astroquery.ipac.irsa import Irsa
 
@@ -101,6 +104,89 @@ def get_detector(url):
 # SEARCH SPHEREX ARCHIVE
 # --------------------------------------------------
 
+
+
+def query_sia_direct(ra, dec, radius=0.01):
+
+    tables = []
+    errors = []
+
+    for collection in COLLECTIONS:
+
+        for attempt in range(3):
+
+            try:
+
+                print(
+                    f"Direct SIA query: {collection} "
+                    f"(attempt {attempt + 1}/3)"
+                )
+
+                response = requests.get(
+                    "https://irsa.ipac.caltech.edu/SIA",
+                    params={
+                        "COLLECTION": collection,
+                        "POS": f"circle {ra} {dec} {radius}"
+                    },
+                    timeout=90
+                )
+
+                response.raise_for_status()
+
+                votable = parse(
+                    BytesIO(response.content)
+                )
+
+                table = votable.get_first_table().to_table(
+                    use_names_over_ids=True
+                )
+
+                required = {"access_url", "t_min"}
+
+                if not required.issubset(table.colnames):
+                    raise RuntimeError(
+                        "Unexpected SIA columns"
+                    )
+
+                print(
+                    f"{collection}: "
+                    f"{len(table)} observations"
+                )
+
+                if len(table):
+                    tables.append(table)
+
+                break
+
+            except Exception as error:
+
+                message = (
+                    f"{collection}, attempt "
+                    f"{attempt + 1}: {error}"
+                )
+
+                errors.append(message)
+                print(message)
+
+                if attempt < 2:
+                    time.sleep(2 ** (attempt + 1))
+
+    if not tables:
+
+        raise RuntimeError(
+            "Unable to retrieve SPHEREx observations. "
+            "The NASA IRSA archive may be temporarily "
+            "unavailable. Please try again shortly. "
+            + "; ".join(errors)
+        )
+
+    return vstack(
+        tables,
+        join_type="outer",
+        metadata_conflicts="silent"
+    )
+
+
 def search_spherex(
     ra,
     dec,
@@ -122,15 +208,7 @@ def search_spherex(
         f"RA={ra}, Dec={dec}"
     )
 
-    results = Irsa.query_sia(
-
-        pos=(
-            coord,
-            0.01 * u.deg
-        ),
-
-        collection=COLLECTIONS
-    )
+    results = query_sia_direct(ra, dec)
 
     if len(results) == 0:
 
